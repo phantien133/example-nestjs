@@ -6,7 +6,13 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier', 'import'],
-  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'plugin:import/recommended', 'plugin:import/typescript'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:import/errors',
+  ],
   root: true,
   env: {
     node: true,
@@ -17,15 +23,15 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        "printWidth": 120,
-        "tabWidth": 2,
-        "useTabs": false,
-        "semi": true,
-        "singleQuote": true,
-        "quoteProps": "as-needed",
-        "trailingComma": "all",
-        "arrowParens": "always"
-      }
+        printWidth: 120,
+        tabWidth: 2,
+        useTabs: false,
+        semi: true,
+        singleQuote: true,
+        quoteProps: 'as-needed',
+        trailingComma: 'all',
+        arrowParens: 'always',
+      },
     ],
     indent: 'off',
     'no-console': 'warn',
@@ -115,34 +121,38 @@ module.exports = {
       },
     ],
     'use-isnan': 'error',
-    "import/resolver": [
+    'import/order': [
       'error',
       {
-        "alias": {
-          "map": [
-            ['@', './src'],
-            ["@config/*", "src/config/*"],
-            ["@modules/*", "src/modules/*"],
-            ["@environments", "src/config/environments"]
-          ],
-          "extensions": ['.ts', '.js', '.json']
-        }
-        "groups": [
-          "builtin", // Built-in imports (come from NodeJS native) go first
-          "external", // <- External imports
-          "internal", // <- Absolute imports
-          ["sibling", "parent"], // <- Relative imports, the sibling and parent types they can be mingled together
-          "index", // <- index imports
-          "unknown" // <- unknown
+        groups: [
+          'builtin', // Built-in imports (come from NodeJS native) go first
+          'external', // <- External imports
+          'internal', // <- Absolute imports
+          ['sibling', 'parent'], // <- Relative imports, the sibling and parent types they can be mingled together
+          'index', // <- index imports
+          'unknown', // <- unknown
         ],
-        "newlines-between": "always",
-        "alphabetize": {
+        'newlines-between': 'always',
+        alphabetize: {
           /* sort in ascending order. Options: ["ignore", "asc", "desc"] */
-          "order": "asc",
+          order: 'asc',
           /* ignore case. Options: [true, false] */
-          "caseInsensitive": true
-        }
-      }
-    ]
+          caseInsensitive: true,
+        },
+      },
+    ],
+  },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', './src'],
+          ['@config', './src/config'],
+          ['@modules', './src/modules'],
+          ['@environments', './src/config/environments'],
+        ],
+        extensions: ['.ts', '.js', '.json'],
+      },
+    },
   },
 };
