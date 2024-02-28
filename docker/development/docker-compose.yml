@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: ./../../
+      dockerfile: docker/dockerfiles/db/Dockerfile
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "${EXN_DOCKER_DB_PORT:-1234}:5432"
+    environment:
+      - "POSTGRES_USER=${EXN_DOCKER_DB_USER:-postgresql}"
+      - "POSTGRES_PASSWORD=${EXN_DOCKER_DB_PW:-EcgEOGerxGqNNEcJ}"
+    networks:
+      - example-nestjs-nw
+
+networks:
+  example-nestjs-nw:
+    driver: bridge
+volumes:
+  db_data:
