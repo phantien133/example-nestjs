@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "paths": {
+      "@config/*": ["src/config/*"],
+      "@modules/*": ["src/modules/*"],
+      "@environments": ["src/config/environments"]
+    },
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -17,5 +22,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
