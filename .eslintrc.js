@@ -146,10 +146,16 @@ module.exports = {
     'import/resolver': {
       alias: {
         map: [
-          ['@', './src'],
-          ['@config', './src/config'],
-          ['@modules', './src/modules'],
-          ['@environments', './src/config/environments'],
+          ["@config", "src/config"],
+          ["@environments", "src/config/environments"],
+          ["@common", "src/common"],
+          ["@decorators", "src/decorators"],
+          ["@exceptions", "src/exceptions"],
+          ["@middlewares", "src/middlewares"],
+          ["@modules", "src/modules"],
+          ["@providers", "src/providers"],
+          ["@utils", "src/utils"],
+          ["@validations", "src/validations"],
         ],
         extensions: ['.ts', '.js', '.json'],
       },

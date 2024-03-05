@@ -2,8 +2,15 @@
   "compilerOptions": {
     "paths": {
       "@config/*": ["src/config/*"],
+      "@environments/*": ["src/config/environments/*"],
+      "@common/*": ["src/common/*"],
+      "@decorators/*": ["src/decorators/*"],
+      "@exceptions/*": ["src/exceptions/*"],
+      "@middlewares/*": ["src/middlewares/*"],
       "@modules/*": ["src/modules/*"],
-      "@environments": ["src/config/environments"]
+      "@providers/*": ["src/providers/*"],
+      "@utils/*": ["src/utils/*"],
+      "@validations/*": ["src/validations/*"],
     },
     "module": "commonjs",
     "declaration": true,
