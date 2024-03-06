@@ -9,10 +9,13 @@ datasource db {
 
 model Company {
   id     Int     @id @default(autoincrement())
+  createdAt DateTime @default(now()) @db.Timestamptz(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(0)
   code   String  @unique
   name   String
   staffs Staff[]
 }
+
 enum StaffPosition {
   ADMIN
   MANAGER
@@ -20,20 +23,25 @@ enum StaffPosition {
 }
 
 model Staff {
-  id        Int     @id @default(autoincrement())
-  code      String  @unique
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime @default(now()) @db.Timestamptz(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(0)
+  code      String        @unique
   name      String
-  company   Company @relation(fields: [companyId], references: [id])
+  company   Company       @relation(fields: [companyId], references: [id])
   companyId Int
-  userId    Int     @default(0)
+  userId    Int           @default(0)
   position  StaffPosition @default(STAFF)
   startAt   DateTime
-  endAt     DateTime @default("2999-12-31T23:59:59.999Z")
+  endAt     DateTime      @default("2999-12-31T23:59:59.999Z")
+
   @@unique([companyId, userId, startAt])
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @db.Timestamptz(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(0)
+  email     String   @unique
+  name      String?
 }

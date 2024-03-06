@@ -146,6 +146,7 @@ module.exports = {
     'import/resolver': {
       alias: {
         map: [
+          ["@prisma", "./prisma/*"],
           ["@config", "./src/config"],
           ["@environments", "./src/config/environments"],
           ["@common", "./src/common"],
@@ -156,6 +157,7 @@ module.exports = {
           ["@providers", "./src/providers"],
           ["@utils", "./src/utils"],
           ["@validations", "./src/validations"],
+          ["@controllers", "./src/api-gateway/controllers"],
         ],
         extensions: ['.ts', '.js', '.json'],
       },

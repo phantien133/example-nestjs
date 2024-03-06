@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
+      "@prisma/*": ["prisma/*"],
       "@config/*": ["src/config/*"],
       "@environments/*": ["src/config/environments/*"],
       "@common/*": ["src/common/*"],
@@ -11,6 +12,7 @@
       "@providers/*": ["src/providers/*"],
       "@utils/*": ["src/utils/*"],
       "@validations/*": ["src/validations/*"],
+      "@controllers/*": ["src/api-gateway/controllers/*"],
     },
     "module": "commonjs",
     "declaration": true,
