@@ -1,17 +1,24 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import { NestModuleImport } from '@common/types';
 import { DatabaseModule } from '@config/database/database.module';
 
+import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 // config modules
-// modules
+const configModules = () => [ConfigModule.forRoot(), DatabaseModule];
+
+// // API modules
+const appModules: NestModuleImport[] = [ApiModule];
+
+const controllers: any[] = [AppController];
 
 @Module({
-  imports: [ConfigModule.forRoot(), DatabaseModule],
-  controllers: [AppController],
+  imports: [...configModules(), ...appModules],
+  controllers: [...controllers],
   providers: [AppService],
 })
 export class AppModule {}
