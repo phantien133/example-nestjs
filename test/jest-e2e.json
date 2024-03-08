@@ -5,5 +5,18 @@
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@config/(.*)$": "<rootDir>/src/config/$1",
+    "^@environments/(.*)$": "<rootDir>/src/config/environments/$1",
+    "^@common/(.*)$": "<rootDir>/src/common/$1",
+    "^@decorators/(.*)$": "<rootDir>/src/decorators/$1",
+    "^@exceptions/(.*)$": "<rootDir>/src/exceptions/$1",
+    "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
+    "^@modules/(.*)$": "<rootDir>/src/modules/$1",
+    "^@providers/(.*)$": "<rootDir>/src/providers/$1",
+    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@validations/(.*)$": "<rootDir>/src/validations/$1",
+    "^@controllers/(.*)$": "<rootDir>/src/api/controllers/$1"
   }
 }
