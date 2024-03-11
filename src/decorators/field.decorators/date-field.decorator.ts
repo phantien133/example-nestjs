@@ -5,7 +5,7 @@ import { IsDate, NotEquals } from 'class-validator';
 
 import { IsNullable, IsUndefinable } from '@decorators/validator.decorators';
 
-import { IFieldOptions } from './field-options.type';
+import { IFieldOptions, fieldDecorator } from './field-options.decorator';
 
 export function DateField(options: Omit<ApiPropertyOptions, 'type'> & IFieldOptions = {}): PropertyDecorator {
   const decorators = [Type(() => Date), IsDate()];
@@ -20,11 +20,11 @@ export function DateField(options: Omit<ApiPropertyOptions, 'type'> & IFieldOpti
     decorators.push(ApiProperty({ type: Date, ...options }));
   }
 
-  return applyDecorators(...decorators);
+  return applyDecorators(fieldDecorator(), ...decorators);
 }
 
 export function DateFieldOptional(
   options: Omit<ApiPropertyOptions, 'type' | 'required'> & IFieldOptions = {},
 ): PropertyDecorator {
-  return applyDecorators(IsUndefinable(), DateField({ ...options, required: false }));
+  return applyDecorators(fieldDecorator(), IsUndefinable(), DateField({ ...options, required: false }));
 }

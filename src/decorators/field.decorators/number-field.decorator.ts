@@ -6,7 +6,7 @@ import { IsInt, IsNumber, IsPositive, Max, Min, NotEquals } from 'class-validato
 import { ToArray } from '@decorators/transform.decorators';
 import { IsNullable, IsUndefinable } from '@decorators/validator.decorators';
 
-import { IFieldOptions } from './field-options.type';
+import { IFieldOptions, fieldDecorator } from './field-options.decorator';
 
 export interface INumberFieldOptions extends IFieldOptions {
   min?: number;

@@ -4,6 +4,9 @@ import { AbstractDto } from './dto/abstract.dto';
 import { Constructor } from './types';
 
 export abstract class AbstractEntity<DTO extends AbstractDto = AbstractDto, O = never> {
+  private dtoClass?: Constructor<DTO, [AbstractEntity, O?]>;
+  private attrs: { [key: string]: string };
+
   @NumberField({ int: true, isPositive: true })
   id!: number;
 
@@ -16,8 +19,6 @@ export abstract class AbstractEntity<DTO extends AbstractDto = AbstractDto, O = 
   @DateField()
   updatedAt: Date;
 
-  private dtoClass?: Constructor<DTO, [AbstractEntity, O?]>;
-
   toDto(options?: O): DTO {
     const dtoClass = this.dtoClass;
 
@@ -26,5 +27,16 @@ export abstract class AbstractEntity<DTO extends AbstractDto = AbstractDto, O = 
     }
 
     return new dtoClass(this, options);
+  }
+
+  public get attributes() {
+    return this.attrs;
+  }
+
+  public addAttribute(key: string, value: string) {
+    if (!this.attrs) {
+      this.attrs = {};
+    }
+    this.attrs[key] = value;
   }
 }

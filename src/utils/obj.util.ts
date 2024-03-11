@@ -1,6 +1,6 @@
-export function omitToObject<From, To>(from: From, to: To, excludeKeys: string[]): To {
+export function omitToObject<From, To>(from: From, to: To, excludeKeys: { [key: string]: boolean }): To {
   Object.keys(from).forEach((key) => {
-    if (excludeKeys.includes(key)) {
+    if (excludeKeys[key]) {
       return;
     }
     if (to.hasOwnProperty(key)) {

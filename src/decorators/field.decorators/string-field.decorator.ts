@@ -5,7 +5,7 @@ import { IsString, MaxLength, MinLength, NotEquals } from 'class-validator';
 
 import { IsNullable, IsUndefinable } from '@decorators/validator.decorators';
 
-import { IFieldOptions } from './field-options.type';
+import { IFieldOptions, fieldDecorator } from './field-options.decorator';
 
 interface IStringFieldOptions extends IFieldOptions {
   minLength?: number;
@@ -43,13 +43,13 @@ export function StringField(options: Omit<ApiPropertyOptions, 'type'> & IStringF
     decorators.push(ToUpperCase());
   }
 
-  return applyDecorators(...decorators);
+  return applyDecorators(fieldDecorator(), ...decorators);
 }
 
 export function StringFieldOptional(
   options: Omit<ApiPropertyOptions, 'type' | 'required'> & IStringFieldOptions = {},
 ): PropertyDecorator {
-  return applyDecorators(IsUndefinable(), StringField({ required: false, ...options }));
+  return applyDecorators(fieldDecorator(), IsUndefinable(), StringField({ required: false, ...options }));
 }
 function ToLowerCase(): PropertyDecorator {
   throw new Error('Function not implemented.');
