@@ -7,7 +7,10 @@ import { IsNullable, IsUndefinable } from '@decorators/validator.decorators';
 
 import { IFieldOptions, fieldDecorator } from './field-options.decorator';
 
-export function DateField(options: Omit<ApiPropertyOptions, 'type'> & IFieldOptions = {}): PropertyDecorator {
+export function DateField({
+  databaseFieldName,
+  ...options
+}: Omit<ApiPropertyOptions, 'type'> & IFieldOptions = {}): PropertyDecorator {
   const decorators = [Type(() => Date), IsDate()];
 
   if (options.nullable) {
@@ -20,11 +23,11 @@ export function DateField(options: Omit<ApiPropertyOptions, 'type'> & IFieldOpti
     decorators.push(ApiProperty({ type: Date, ...options }));
   }
 
-  return applyDecorators(fieldDecorator(), ...decorators);
+  return applyDecorators(fieldDecorator({ databaseFieldName }), ...decorators);
 }
 
 export function DateFieldOptional(
   options: Omit<ApiPropertyOptions, 'type' | 'required'> & IFieldOptions = {},
 ): PropertyDecorator {
-  return applyDecorators(fieldDecorator(), IsUndefinable(), DateField({ ...options, required: false }));
+  return applyDecorators(IsUndefinable(), DateField({ ...options, required: false }));
 }

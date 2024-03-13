@@ -7,7 +7,7 @@ import { DateField, NumberField, StringField, StringFieldOptional, fieldDecorato
 export class UserEntity extends AbstractEntity implements User {
   @fieldDecorator()
   @NumberField({ int: true, isPositive: true })
-  id: number;
+  id!: number;
 
   @StringField({ maxLength: 255 })
   @IsEmail()

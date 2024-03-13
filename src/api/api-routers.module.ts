@@ -1,10 +1,12 @@
-import { ApiUsersModule } from 'src/api/modules/users/api-users.module';
+import { UsersApiModule } from '@api/users/users.api.module';
+import { NestModuleImport } from '@common/types';
 
+export const ApiModules: NestModuleImport[] = [UsersApiModule];
 // path: '/api',
 // module: ApiModule,
-export const APIRouters = [
+export const ApiRouters = [
   {
     path: 'users',
-    module: ApiUsersModule,
+    module: UsersApiModule,
   },
 ];

@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 
-export class RegisterDTo implements Partial<User> {
+export class CreateDTo implements Partial<User> {
   email: string;
   name?: string;
 }

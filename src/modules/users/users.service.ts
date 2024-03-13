@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
-import { RegisterDTo } from './dto/register.dto';
+import { CreateDTo } from './dto/create.dto';
 import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly repo: UsersRepository) {}
 
-  create(data: RegisterDTo) {
+  create(data: CreateDTo) {
     return this.repo.create({ data });
   }
 }

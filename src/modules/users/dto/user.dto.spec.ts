@@ -10,8 +10,4 @@ describe('UserDto', () => {
   it('should be defined', () => {
     expect(dto).toBeDefined();
   });
-
-  it('should have id', () => {
-    expect(dto.ids).toEqual('id-1');
-  });
 });

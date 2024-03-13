@@ -14,7 +14,10 @@ interface IStringFieldOptions extends IFieldOptions {
   toUpperCase?: boolean;
 }
 
-export function StringField(options: Omit<ApiPropertyOptions, 'type'> & IStringFieldOptions = {}): PropertyDecorator {
+export function StringField({
+  databaseFieldName,
+  ...options
+}: Omit<ApiPropertyOptions, 'type'> & IStringFieldOptions = {}): PropertyDecorator {
   const decorators = [Type(() => String), IsString({ each: options.each })];
 
   if (options.nullable) {
@@ -43,13 +46,13 @@ export function StringField(options: Omit<ApiPropertyOptions, 'type'> & IStringF
     decorators.push(ToUpperCase());
   }
 
-  return applyDecorators(fieldDecorator(), ...decorators);
+  return applyDecorators(fieldDecorator({ databaseFieldName }), ...decorators);
 }
 
 export function StringFieldOptional(
   options: Omit<ApiPropertyOptions, 'type' | 'required'> & IStringFieldOptions = {},
 ): PropertyDecorator {
-  return applyDecorators(fieldDecorator(), IsUndefinable(), StringField({ required: false, ...options }));
+  return applyDecorators(IsUndefinable(), StringField({ required: false, ...options }));
 }
 function ToLowerCase(): PropertyDecorator {
   throw new Error('Function not implemented.');

@@ -17,7 +17,10 @@ export interface INumberFieldOptions extends IFieldOptions {
 
 export type NumberFieldOptions = INumberFieldOptions;
 
-export function NumberField(options: Omit<ApiPropertyOptions, 'type'> & INumberFieldOptions = {}): PropertyDecorator {
+export function NumberField({
+  databaseFieldName,
+  ...options
+}: Omit<ApiPropertyOptions, 'type'> & INumberFieldOptions = {}): PropertyDecorator {
   const decorators = [Type(() => Number)];
 
   if (options.nullable) {
@@ -52,7 +55,7 @@ export function NumberField(options: Omit<ApiPropertyOptions, 'type'> & INumberF
     decorators.push(IsPositive({ each: options.each }));
   }
 
-  return applyDecorators(...decorators);
+  return applyDecorators(fieldDecorator({ databaseFieldName }), ...decorators);
 }
 
 export function NumberFieldOptional(

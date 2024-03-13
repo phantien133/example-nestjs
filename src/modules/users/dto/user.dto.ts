@@ -5,16 +5,16 @@ import { StringField } from '@decorators/field.decorators';
 
 import { UserEntity } from '../user.entity';
 
-export class UserDto extends AbstractDto {
-  constructor(user: UserEntity | User, options?: ConstructorDtoOptions) {
+export class UserDto extends AbstractDto<UserEntity> {
+  constructor(user: UserEntity | User, options?: ConstructorDtoOptions<UserEntity>) {
     super(user, options);
+  }
+
+  @fieldFormatter({ field: 'ids', fromKeys: ['id'] })
+  formatId(id: number) {
+    return `id: ${id}`;
   }
 
   @StringField({ maxLength: 255 })
   ids: string;
-
-  @fieldFormatter({ field: 'ids', fromKeys: ['id'] })
-  formatId(id: number) {
-    return id + 1;
-  }
 }
