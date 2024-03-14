@@ -156,7 +156,7 @@ module.exports = {
           ["@providers", "./src/providers"],
           ["@utils", "./src/utils"],
           ["@validations", "./src/validations"],
-          ["@controllers", "./src/api/controllers"],
+          ["@api", "./src/api/modules"],
         ],
         extensions: ['.ts', '.js', '.json'],
       },

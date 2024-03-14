@@ -6,7 +6,7 @@ import { IsInt, IsNumber, IsPositive, Max, Min, NotEquals } from 'class-validato
 import { ToArray } from '@decorators/transform.decorators';
 import { IsNullable, IsUndefinable } from '@decorators/validator.decorators';
 
-import { IFieldOptions } from './field-options.type';
+import { IFieldOptions, fieldDecorator } from './field-options.decorator';
 
 export interface INumberFieldOptions extends IFieldOptions {
   min?: number;
@@ -17,7 +17,10 @@ export interface INumberFieldOptions extends IFieldOptions {
 
 export type NumberFieldOptions = INumberFieldOptions;
 
-export function NumberField(options: Omit<ApiPropertyOptions, 'type'> & INumberFieldOptions = {}): PropertyDecorator {
+export function NumberField({
+  databaseFieldName,
+  ...options
+}: Omit<ApiPropertyOptions, 'type'> & INumberFieldOptions = {}): PropertyDecorator {
   const decorators = [Type(() => Number)];
 
   if (options.nullable) {
@@ -52,7 +55,7 @@ export function NumberField(options: Omit<ApiPropertyOptions, 'type'> & INumberF
     decorators.push(IsPositive({ each: options.each }));
   }
 
-  return applyDecorators(...decorators);
+  return applyDecorators(fieldDecorator({ databaseFieldName }), ...decorators);
 }
 
 export function NumberFieldOptional(

@@ -5,9 +5,10 @@ import { APP_INFO } from '@config/environments/public';
 
 const swaggerConfig = (): Omit<OpenAPIObject, 'paths'> =>
   new DocumentBuilder()
-    .setTitle('Example NestJS API Swagger')
-    .setDescription('The Example NestJS API description')
+    .setTitle('Example NestJS Api Swagger')
+    .setDescription('The Example NestJS Api description')
     .setVersion(APP_INFO.VERSION)
+    .addTag('API')
     .build();
 
 const setupSwagger = (app: INestApplication<any>) =>

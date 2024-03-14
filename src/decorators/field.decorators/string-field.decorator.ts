@@ -5,7 +5,7 @@ import { IsString, MaxLength, MinLength, NotEquals } from 'class-validator';
 
 import { IsNullable, IsUndefinable } from '@decorators/validator.decorators';
 
-import { IFieldOptions } from './field-options.type';
+import { IFieldOptions, fieldDecorator } from './field-options.decorator';
 
 interface IStringFieldOptions extends IFieldOptions {
   minLength?: number;
@@ -14,7 +14,10 @@ interface IStringFieldOptions extends IFieldOptions {
   toUpperCase?: boolean;
 }
 
-export function StringField(options: Omit<ApiPropertyOptions, 'type'> & IStringFieldOptions = {}): PropertyDecorator {
+export function StringField({
+  databaseFieldName,
+  ...options
+}: Omit<ApiPropertyOptions, 'type'> & IStringFieldOptions = {}): PropertyDecorator {
   const decorators = [Type(() => String), IsString({ each: options.each })];
 
   if (options.nullable) {
@@ -43,7 +46,7 @@ export function StringField(options: Omit<ApiPropertyOptions, 'type'> & IStringF
     decorators.push(ToUpperCase());
   }
 
-  return applyDecorators(...decorators);
+  return applyDecorators(fieldDecorator({ databaseFieldName }), ...decorators);
 }
 
 export function StringFieldOptional(
