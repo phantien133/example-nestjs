@@ -5,10 +5,13 @@ import { IsBoolean, NotEquals } from 'class-validator';
 import { ToBoolean } from '@decorators/transform.decorators';
 import { IsNullable, IsUndefinable } from '@decorators/validator.decorators';
 
-import { IFieldOptions } from './field-options.type';
+import { IFieldOptions, fieldDecorator } from './field-options.decorator';
 
 export type IBooleanFieldOptions = IFieldOptions;
-export function BooleanField(options: Omit<ApiPropertyOptions, 'type'> & IBooleanFieldOptions = {}): PropertyDecorator {
+export function BooleanField({
+  databaseFieldName,
+  ...options
+}: Omit<ApiPropertyOptions, 'type'> & IBooleanFieldOptions = {}): PropertyDecorator {
   const decorators = [ToBoolean(), IsBoolean()];
 
   if (options.nullable) {
@@ -21,7 +24,7 @@ export function BooleanField(options: Omit<ApiPropertyOptions, 'type'> & IBoolea
     decorators.push(ApiProperty({ type: Boolean, ...options }));
   }
 
-  return applyDecorators(...decorators);
+  return applyDecorators(fieldDecorator({ databaseFieldName }), ...decorators);
 }
 
 export function BooleanFieldOptional(

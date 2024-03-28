@@ -16,8 +16,8 @@ describe('ApiController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(apiController.getHello()).toBe('Hello World!');
+    it('should return "example-nestjs Api"', () => {
+      expect(apiController.getApi()).toBe('example-nestjs Api');
     });
   });
 });
